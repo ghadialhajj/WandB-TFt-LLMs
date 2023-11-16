@@ -59,3 +59,9 @@ Example:
 todo: add a numerical example
 
 ### LLM Benchmarks
+
+- ARC: A dataset for evaluating common sense reasoning systems
+- HellaSwag (Harder Endings, Longer contexts, and Low-shot Activities for Situations With Adversarial Generations): A dataset for evaluating models' ability to avoid generating implausible responses
+- MMLU (Massive Multitask Language Understanding): A dataset for evaluating models' ability to perform mathematical problem-solving
+- Truthful QA: A benchmark that tests models' ability to separate fact from an adversarially-selected set of incorrect statements. It measures how well models mimic human falsehoods
+
