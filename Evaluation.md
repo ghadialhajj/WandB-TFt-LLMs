@@ -20,7 +20,15 @@ $$-\sum_{\text{word} \in V} p(W_4=\text{word}|W_1=w_1, W_2=w_2, W_3=w_3)\ log(q(
 
 During evaluation, each word in the vocabulary can potentially have a non-zero probability, so for each new token, you compute this sum if you wish to compute the CE. However, during training, only one word is correct, so all tokens, except the correct one, have zero probabilities, and the correct one has a probability of 1.
 
-Taking all of this to arrive at perplexity, this metric is the exponential of the CE loss. However, the CE is not between the true (empirical) distribution and the model's predicted distribution but between a uniform one and the model's prediction. In other words, $p$ is a uniform distribution while $q$ is the model's predicted distribution. With the standard CE loss, $p$ is the empirical distribution, a delta distribution around the true word in the sequence.
+Taking all of this to arrive at perplexity, PPL is the exponential of the average of individual CE losses between the empirical distribution, the sentence you have, and the model's predicted distribution.
+
+From another perspective, PPL can be seen as a CE measure between $p$, a uniform distribution, and $q$, the model's predicted distribution.
+
+Perplexity is calculated as follows:
+
+$$\text{PPL} = \exp \left[ -\frac{1}{t}\sum_{i}^{t} \log p_\theta(w_i | w_1, w_2, \ldots, w_{i-1}) \right]$$
+
+The summation you see above differs from the summation of CE, which has already been reduced to one probability since only one word is correct in that input sentence, i.e. $$p_\theta(w_i | w_1, w_2, \ldots, w_{i-1}) = \sum_{w_j \in V} \delta(w_i-w_j) p_\theta(w_i=w_j | w_1, w_2, \ldots, w_{i-1})$$
 
 From HF: "Intuitively, it can be thought of as an evaluation of the model’s ability to predict **uniformly** among the set of specified tokens in a corpus" ([link](https://huggingface.co/docs/transformers/perplexity#:~:text=Intuitively%2C%20it%20can%20be%20thought%20of%20as%20an%20evaluation%20of%20the%20model%E2%80%99s%20ability%20to%20predict%20uniformly%20among%20the%20set%20of%20specified%20tokens%20in%20a%20corpus.))
 
